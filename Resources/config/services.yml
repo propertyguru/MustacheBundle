@@ -1,0 +1,46 @@
+parameters:
+    mustache.cache_dir: %kernel.cache_dir%/mustache
+
+services:
+    mustache.cache_warmer:
+        class: Propertyguru\MustacheBundle\CacheWarmer\MustacheCacheWarmer
+        arguments:
+            - @service_container
+            - @templating.finder # Private Service: Symfony\Bundle\FrameworkBundle\Resources\config\templating.xml
+        tags:
+            - {name: kernel.cache_warmer }
+        public: false
+
+    mustache.loader:
+        class: Propertyguru\MustacheBundle\Loader\TemplateLoader
+        arguments:
+            - @templating.name_parser
+            - @templating.loader
+        public: false
+
+    mustache:
+        class: Mustache_Engine
+        arguments:
+            -
+                loader: @mustache.loader
+                partials_loader: @mustache.loader
+                cache: %mustache.cache_dir%
+                charset: UTF-8
+
+    templating.engine.mustache:
+        class: Propertyguru\MustacheBundle\Templating\MustacheEngine
+        arguments:
+            - @mustache
+            - @templating.name_parser
+            - @templating.loader
+        tags:
+            - {name: templating.engine }
+        calls:
+             - [setTranslationHelpers, [@translator]]
+
+    assetic.mustache_formula_loader:
+        class: Propertyguru\MustacheBundle\Assetic\MustacheFormulaLoader
+        tags:
+            - {name: assetic.formula_loader, alias: mustache}
+            - {name: assetic.templating.mustache, alias: mustache}
+        public: false

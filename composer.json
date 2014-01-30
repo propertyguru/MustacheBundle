@@ -1,0 +1,22 @@
+{
+    "name": "propertyguru/mustache-bundle",
+    "description": "Yet another implementation of Mustache for SF2",
+    "keywords": ["templating", "mustache", "symfony", "sf2", "php"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "Propertyguru\\MustacheBundle": ""
+        }
+    },
+    "target-dir": "Propertyguru/MustacheBundle",
+    "require": {
+        "php": ">=5.3.3",
+        "mustache/mustache": "dev-master"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
+        }
+    }
+}
