@@ -19,7 +19,7 @@ class MustacheCacheWarmer implements CacheWarmerInterface
 
     public function warmUp($cacheDir)
     {
-        $mustache = $this->container->get('guru_mustache');
+        $mustache = $this->container->get('mustache');
         // Get all the templates
         $templates = $this->templateFinder->findAllTemplates();
 
