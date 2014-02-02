@@ -25,7 +25,7 @@ services:
                 loader: @mustache.loader
                 partials_loader: @mustache.loader
                 cache: %mustache.cache_dir%
-                charset: UTF-8
+                charset: %kernel.charset%
 
     templating.engine.mustache:
         class: Propertyguru\MustacheBundle\Templating\MustacheEngine

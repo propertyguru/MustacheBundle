@@ -18,11 +18,21 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('mustache');
+        $rootNode = $treeBuilder->root('propertyguru_mustache');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('extensions')
+                    ->info('Templates extensions that should be loaded')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array('mustache'))
+                    ->requiresAtLeastOneElement()
+                ->end()
+            ->end();
+
 
         return $treeBuilder;
     }

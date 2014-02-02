@@ -17,12 +17,18 @@ class PropertyguruMustacheExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
+        // Load defaults config values
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+
+        // Get the configuration
+        $bundleConfiguration = $this->getConfiguration($config, $container);
+        $config = $this->processConfiguration($bundleConfiguration, $config);
+
+        $mustacheEngine = $container->getDefinition('templating.engine.mustache');
+        $mustacheEngine->addMethodCall('addExtensions', array($config['extensions']));
     }
 }

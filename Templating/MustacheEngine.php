@@ -18,6 +18,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class MustacheEngine implements EngineInterface
 {
+    protected $extensions;
     protected $mustache;
     protected $tempalteNameParser;
 
@@ -25,6 +26,8 @@ class MustacheEngine implements EngineInterface
     {
         $this->mustache  = $mustache;
         $this->tempalteNameParser = $tempalteNameParser;
+        // "mustache" as the default extension for mustache templates
+        $this->extensions = array('mustache');
     }
 
     public function render($name, array $parameters = array())
@@ -63,7 +66,7 @@ class MustacheEngine implements EngineInterface
         }
 
         $template = $this->tempalteNameParser->parse($name);
-        return 'mustache' === $template->get('engine');
+        return  in_array($template->get('engine'), $this->extensions);
     }
 
     protected function load($name)
@@ -73,6 +76,13 @@ class MustacheEngine implements EngineInterface
         }
 
         return $this->mustache->loadTemplate($name);
+    }
+
+    public function addExtensions(array $extensions)
+    {
+
+        $extensions = array_merge($this->extensions, $extensions);
+        $this->extensions = array_unique($extensions);
     }
 
     public function setTranslationHelpers(TranslatorInterface $translator)
