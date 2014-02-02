@@ -15,7 +15,34 @@ It requires Mustache.php
 Documentation
 -------------
 
-TODO hehehe
+If it is needed to have other extensions than 'mustache' to be recognized as mustache templates,
+then expose the Semantic Configuration for this bundle:
+
+```
+console config:dump-reference PropertyguruMustacheBundle
+
+# Default configuration for "PropertyguruMustacheBundle"
+propertyguru_mustache:
+
+    # Templates extensions that should be loaded
+    extensions:
+
+        # Default:
+        - mustache
+```
+
+Have mustache templates with 'ms' extension instead?
+just add on your app/config/config.yml
+
+```
+propertyguru_mustache:
+    extensions:
+        - mustache
+        - ms
+```
+
+Even if the 'mustache' is removed, it will still be available by default.
+
 
 Installation
 ------------
