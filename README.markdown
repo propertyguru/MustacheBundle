@@ -59,3 +59,21 @@ Register the bundle on your AppKernel.php
             new Propertyguru\MustacheBundle\PropertyguruMustacheBundle(),
             ...
 ```
+
+And let Symfony's framework know that the templating service can render mustache
+from:
+```
+# app\config\config.yml
+framework:
+    templating:
+        engines: ['twig']
+```
+
+to
+
+```
+# app\config\config.yml
+framework:
+    templating:
+        engines: ['twig', 'mustache']
+```
