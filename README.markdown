@@ -43,7 +43,7 @@ propertyguru_mustache:
 
 Even if the 'mustache' is removed, it will still be available by default.
 
-Add Helper
+Example use
 ----------
 
 See more detail: https://github.com/bobthecow/mustache.php/wiki/FILTERS-pragma
@@ -60,7 +60,7 @@ if ($templateEngine instanceof MustacheEngine) {
 
     // Convert 100000 to 100,000 
     $templateEngine->addHelper('decimal', function ($value) {
-        return number_format((string)$value);
+        return number_format($value);
     }
 }
 ...
