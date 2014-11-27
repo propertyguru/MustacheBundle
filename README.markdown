@@ -2,7 +2,7 @@ MustacheBundle
 =============
 
 Hello world! This is our implementation of Mustache for SF2.
-The registration of the tempalte engine was done by checking the examples of:
+The registration of the template engine was done by checking the examples of:
 [Symfony\Component\Templating\PhpEngine](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Templating/PhpEngine.php)
 
 
@@ -43,6 +43,37 @@ propertyguru_mustache:
 
 Even if the 'mustache' is removed, it will still be available by default.
 
+Example use
+----------
+
+See more detail: https://github.com/bobthecow/mustache.php/wiki/FILTERS-pragma
+
+**UnitInformationWidget.php**
+
+```php
+...
+// We need to get actual template engine from DelegatingEngine object
+$delegatingEngine = $this->content->get('templating')->getEngine();
+$templateEngine = $delegatingEngine->getEngine('GuruMobileLiteDeveloperBundle:widgets:unit-information.html.ms')
+
+if ($templateEngine instanceof MustacheEngine) {
+
+    // Convert 100000 to 100,000 
+    $templateEngine->addHelper('decimal', function ($value) {
+        return number_format($value);
+    }
+}
+...
+```
+
+**unit-information.html.ms**
+```html
+...
+{{%FILTERS}}        <--- Should place in the top of template
+...
+<div>{{ price | decimal }}</div>
+...
+```
 
 Installation
 ------------
@@ -50,6 +81,7 @@ Add it to your composer.
 composer update.
 
 Register the bundle on your AppKernel.php
+
 ```php
 <?php
     public function registerBundles()
@@ -62,7 +94,8 @@ Register the bundle on your AppKernel.php
 
 And let Symfony's framework know that the templating service can render mustache
 from:
-```
+
+```yaml
 # app\config\config.yml
 framework:
     templating:
@@ -71,7 +104,7 @@ framework:
 
 to
 
-```
+```yaml
 # app\config\config.yml
 framework:
     templating:

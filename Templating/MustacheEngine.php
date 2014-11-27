@@ -110,4 +110,15 @@ class MustacheEngine implements EngineInterface
             return $translator->trans($mustache->render($string));
         });
     }
+
+    /**
+     * @see https://github.com/bobthecow/mustache.php/wiki/FILTERS-pragma
+     *
+     * @param string $name      The helper name
+     * @param mixed $callback   The helper callback
+     */
+    public function addHelper($name, $callback)
+    {
+        $this->mustache->addHelper($name, $callback);
+    }
 }
