@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\Loader\LoaderInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Propertyguru\MustacheBundle\Helper\MustacheHelperInterface;
 
 /**
  * MustacheEngine is an engine able to render Mustache templates.
@@ -109,5 +110,10 @@ class MustacheEngine implements EngineInterface
 
             return $translator->trans($mustache->render($string));
         });
+    }
+
+    public function addHelper(MustacheHelperInterface $helper)
+    {
+        $this->mustache->addHelper($helper->getName(), $helper->getHelper());
     }
 }
