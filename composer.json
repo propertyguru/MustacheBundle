@@ -10,10 +10,6 @@
         }
     },
     "target-dir": "Propertyguru/MustacheBundle",
-    "require": {
-        "php": ">=5.3.3",
-        "mustache/mustache": "2.5.*"
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
